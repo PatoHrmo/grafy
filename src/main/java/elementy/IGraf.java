@@ -12,5 +12,7 @@ package elementy;
 public interface IGraf {
 
     public boolean priadjHranu(Hrana hrana);
+    
+    public boolean pridajVrchol(Vrchol vrchol);
 
 }
