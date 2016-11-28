@@ -12,4 +12,6 @@ package elementy;
 public interface IGraf {
     public Hrana dajHranu();
     
+    public Vrchol dajVrchol();
+    
 }
