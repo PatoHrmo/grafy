@@ -10,6 +10,7 @@ package elementy;
  * @author vasilovsky1
  */
 public interface IGraf {
-    
-    
+
+    public boolean priadjHranu(Hrana hrana);
+
 }
