@@ -9,6 +9,7 @@ package elementy;
  *
  * @author vasilovsky1
  */
-public class IGraf {
+public interface IGraf {
+    
     
 }
