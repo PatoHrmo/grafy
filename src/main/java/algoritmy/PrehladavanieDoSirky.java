@@ -7,10 +7,10 @@ package algoritmy;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
-
-import elementy.Graf;
 import elementy.Hrana;
+import elementy.IGraf;
 import elementy.Vrchol;
 
 /**
@@ -27,7 +27,7 @@ public class PrehladavanieDoSirky extends Algoritmus{
      * @param graf graf nad ktorĂ˝m sa Floydov algoritmus vykonĂˇ
 
      */
-    public PrehladavanieDoSirky(Graf graf,Vrchol vrchol) {
+    public PrehladavanieDoSirky(IGraf graf,Vrchol vrchol) {
     	super(graf);
         this.vrchol = vrchol;
     }
@@ -48,7 +48,7 @@ public class PrehladavanieDoSirky extends Algoritmus{
      * Pri kaĹľdom kroku zafarbĂ­ novoobjavenĂ˝ vrchol a hranu ktorou sme ho objavili.
      * @param vrcholy zoznam objavenĂ˝ch vrcholov z ktorĂ˝ch sme eĹˇte nezaÄŤali prehÄľadĂˇvaĹĄ ÄŹalej, na zaÄŤiatku je v Ĺ�omlenjedenvrchol, ten ktorĂ˝ si vybral pouĹľĂ­vateÄľ 
      */
-    private void prehladavanieDoSirky(ArrayList<Vrchol> vrcholy) {
+    private void prehladavanieDoSirky(List<Vrchol> vrcholy) {
         if (vrcholy.isEmpty()) {
             return;
         }

@@ -5,8 +5,8 @@
  */
 package algoritmy;
 
-import elementy.Graf;
 import elementy.Hrana;
+import elementy.IGraf;
 import elementy.Vrchol;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,14 +16,13 @@ import java.util.List;
  *
  * @author patrik
  */
-public class TarryhoPrehliadka {
-
-    Graf graf;
-
-    public TarryhoPrehliadka(Graf graf) {
-        this.graf = graf;
+public class TarryhoPrehliadka extends Algoritmus {
+	private Vrchol pociatocnyVrchol;
+	List<Hrana> sled;
+    public TarryhoPrehliadka(IGraf graf, Vrchol pociatocnyVrchol) {
+    	super(graf);
+    	this.pociatocnyVrchol = pociatocnyVrchol;
     }
-
     public List<Hrana> vytvorSledPodlaTarryho(Vrchol vrchol) {
         List<Hrana> vyslednySled = new LinkedList<>();
         Vrchol poslednyVrcholSledu;
@@ -99,5 +98,13 @@ public class TarryhoPrehliadka {
             vrchol.setBolNavstiveny(false);
         }
     }
+
+	@Override
+	public void spravAlgoritmus() {
+		sled = vytvorSledPodlaTarryho(pociatocnyVrchol);
+	}
+	public List<Hrana> getSled() {
+		return sled;
+	}
 
 }

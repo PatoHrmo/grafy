@@ -1,17 +1,74 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package elementy;
 
-/**
- *
- * @author vasilovsky1
- */
+import java.util.List;
+
 public interface IGraf {
-    public Hrana dajHranu();
-    
-    public Vrchol dajVrchol();
-    
+
+	/**
+	 * Vloží vrchol do grafu.
+	 * @param paVrchol vrchol, ktorý sa vloží do grafu.
+	 * @return
+	 */
+	boolean vlozVrchol(Vrchol paVrchol);
+
+	/**
+	 * Vloží hranu do grafu.
+	 * @param paHrana hrana, ktorá sa vloží do grafu
+	 * @return
+	 */
+	boolean vlozHranu(Hrana paHrana);
+
+	/**
+	 * Vráti taký vrchol, ktorého grafická reprezentácia na plátne (kruh) obsahuje bod so súradnicami. Ak taký vrchol nie je, vráti null.
+	 * @param paX Xová súradnica bodu
+	 * @param paY Ynová súradnica bodu
+	 * @return
+	 */
+	Vrchol dajVrchol(int paX, int paY);
+
+	/**
+	 * Odstráni vrchol a všetky hrany s ním incidentné.
+	 * @param paVrchol vrchol na odstránenie.
+	 */
+	void odstranVrchol(Vrchol paVrchol);
+
+	/**
+	 * Vráti indexovaný zoznam vrcholov.
+	 * @return
+	 */
+	List<Vrchol> getVrcholy();
+
+	/**
+	 * Vráti indexovaný zoznam hrán.
+	 * @return
+	 */
+	List<Hrana> getHrany();
+
+	/**
+	 * Odstráni hranu zgrafu.
+	 * @param hrana Hrana na odstránenie.
+	 */
+	void odstranHranu(Hrana hrana);
+
+	/**
+	 * Vráti prvú hranu v zozname pre ktorú platí, že bod sa nachádza v tesnej blízkosti jej reprezentácie. Ak taká nie je , vráti null.
+	 * @param paX Xová súradnica bodu
+	 * @param paY Ynová súradnica bodu
+	 * @return
+	 */
+	Hrana dajHranu(int paX, int paY);
+
+	/**
+	 * Vráti hranu (vrchol1,vrchol2) alebo {vrchol1,vrchol1}ak takáexistuje, inak vráti null;
+	 * @param vrchol1
+	 * @param vrchol2
+	 * @return
+	 */
+	Hrana dajHranu(Vrchol vrchol1, Vrchol vrchol2);
+
+	/**
+	 * nastaví farbu všetkých komponentov grafu na sivú
+	 */
+	void odfarbiGraf();
+
 }

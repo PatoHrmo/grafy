@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.util.Collections;
 import java.util.Random;
 
-import elementy.Graf;
 import elementy.Vrchol;
 import elementy.Hrana;
+import elementy.IGraf;
 /**
  * Algoritmus pre hľadanie najdrahšej kostry
  *
@@ -22,7 +22,7 @@ public class Kostra extends Algoritmus {
      */
     private boolean najlacnejsia;
 
-    public Kostra(Graf graf, boolean najlacnejsia) {
+    public Kostra(IGraf graf, boolean najlacnejsia) {
         super(graf);
         this.najlacnejsia = najlacnejsia;
     }

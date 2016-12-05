@@ -5,7 +5,7 @@
  */
 package algoritmy;
 
-import elementy.Graf;
+import elementy.IGraf;
 
 /**
  * Abstraktná trieda, dedia z nej triedy reprezentujúce konkrétny algoritmus. 
@@ -16,7 +16,7 @@ public abstract class Algoritmus {
     /**
      * graf nad ktorým sa algoritmus vykonáva
      */
-    protected Graf graf;
+    protected IGraf graf;
 
 
     /**
@@ -26,7 +26,7 @@ public abstract class Algoritmus {
      * @param pauser
      * @param vstupy
      */
-    public Algoritmus(Graf graf) {
+    public Algoritmus(IGraf graf) {
         this.graf = graf;
     }
     
