@@ -2,6 +2,7 @@ package algoritmy;
 
 import elementy.Graf;
 import elementy.Hrana;
+import elementy.IGraf;
 import elementy.Vrchol;
 
 public class TarryhoPrehliadkaTest {
@@ -20,7 +21,7 @@ public class TarryhoPrehliadkaTest {
 		Hrana ce = new Hrana(c,e,0,false);
 		Hrana de = new Hrana(d,e,0,false);
 		
-		Graf graf = new Graf();
+		IGraf graf = new Graf();
 		
 		graf.vlozHranu(ad);
 		graf.vlozHranu(ac);

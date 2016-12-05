@@ -2,9 +2,9 @@ package algoritmy;
 
 import java.awt.Color;
 
-import elementy.Graf;
 import elementy.Vrchol;
 import elementy.Hrana;
+import elementy.IGraf;
 
 /**
  * Dijkstrov algoritmus
@@ -24,7 +24,7 @@ public class Dijkstrov extends Algoritmus {
      */
     private Vrchol aVrchol;
 
-    public Dijkstrov(Graf graf, Vrchol vrchol) {
+    public Dijkstrov(IGraf graf, Vrchol vrchol) {
         super(graf);
         this.aVrchol = vrchol;
     }

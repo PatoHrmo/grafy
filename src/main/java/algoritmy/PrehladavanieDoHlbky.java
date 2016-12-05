@@ -8,9 +8,9 @@ package algoritmy;
 
 import java.awt.Color;
 
-import elementy.Graf;
 import elementy.Vrchol;
 import elementy.Hrana;
+import elementy.IGraf;
 
 /**
  * Algoritmus pre  hĺbkové prehľadávanie rekurziou
@@ -24,7 +24,7 @@ public class PrehladavanieDoHlbky extends Algoritmus {
      * vytvorenie inštancie algoritmu
      * @param graf graf nad ktorým sa Floydov algoritmus vykoná
      */
-    public PrehladavanieDoHlbky(Graf graf,Vrchol vrchol) {
+    public PrehladavanieDoHlbky(IGraf graf,Vrchol vrchol) {
         super(graf);
         this.vrchol = vrchol;
     }

@@ -1,6 +1,6 @@
 package algoritmy;
 
-import elementy.Graf;
+import elementy.IGraf;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,7 +21,7 @@ public class Floydov extends Algoritmus {
      * @param graf graf nad ktorým sa Floydov algoritmus vykoná
      * 
      */
-    public Floydov(Graf graf) {
+    public Floydov(IGraf graf) {
         super(graf);
     }
 
