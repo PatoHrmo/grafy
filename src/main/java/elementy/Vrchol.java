@@ -16,9 +16,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class Vrchol implements Serializable{
     
-    private int poziciaX;
-    private int poziciaY;
-    private char nazov;
+    private String nazov;
     
     //pomocne premenne k algoritmom
     private double znacka;
@@ -26,66 +24,35 @@ public class Vrchol implements Serializable{
     private boolean bolNavstiveny;
     private Vrchol pomVrchol;
     
-    
     private Color farba = Color.gray;
     private List<Hrana> incidentneHrany;
-
-    
-   
-
     /**
      * Vytvorí nový vrchol.
      * @param paPoziciaX poloha vrcholu na osi x
      * @param paPoziciaY poloha vrcholu na osi y
      * @param paNazov názov vrcholu 
      */
-    public Vrchol(int paPoziciaX, int paPoziciaY, char paNazov) {
-        this.poziciaX = paPoziciaX;
-        this.poziciaY = paPoziciaY;
+    public Vrchol(String paNazov) {
         this.nazov = paNazov;
         this.bolNavstiveny = false;
         this.incidentneHrany = new LinkedList<>();
     }
     
-    /**
-     * nastaví súradnice vrcholu
-     * @param paX pozicia na osi x
-     * @param paY pozicia na osi y
-     */
-    public void setSuradnice(int paX, int paY){
-        this.poziciaX=paX;
-        this.poziciaY=paY;
-    }
+   
 
     /**
      * nastaví názov vrcholu
      * @param nazov
      */
-    public void setNazov(char nazov) {
+    public void setNazov(String nazov) {
         this.nazov = nazov;
     }
     
     /**
-     * Vráti pozíciu na osi x
-     * @return
-     */
-    public int getPoziciaX() {
-        return poziciaX;
-    }
-
-    /**
-     * Vráti pozíciu na osi y
-     * @return
-     */
-    public int getPoziciaY() {
-        return poziciaY;
-    }
-
-    /**
      * Vráti názov vrcholu
      * @return
      */
-    public char getNazov() {
+    public String getNazov() {
         return nazov;
     }
     
@@ -185,11 +152,4 @@ public class Vrchol implements Serializable{
             return null;
         return incidentneHrany.get(0);
     }
-
-//    public List<Vrchol> getSusediaceVrcholy() {
-//        List<Vrchol> susedia = new LinkedList<>();
-//        for(Hrana hrana : get)
-//        return susedia;
-//    }
-
 }

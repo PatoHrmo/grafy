@@ -18,13 +18,7 @@ public interface IGraf {
 	 */
 	boolean vlozHranu(Hrana paHrana);
 
-	/**
-	 * Vráti taký vrchol, ktorého grafická reprezentácia na plátne (kruh) obsahuje bod so súradnicami. Ak taký vrchol nie je, vráti null.
-	 * @param paX Xová súradnica bodu
-	 * @param paY Ynová súradnica bodu
-	 * @return
-	 */
-	Vrchol dajVrchol(int paX, int paY);
+	
 
 	/**
 	 * Odstráni vrchol a všetky hrany s ním incidentné.
@@ -49,15 +43,6 @@ public interface IGraf {
 	 * @param hrana Hrana na odstránenie.
 	 */
 	void odstranHranu(Hrana hrana);
-
-	/**
-	 * Vráti prvú hranu v zozname pre ktorú platí, že bod sa nachádza v tesnej blízkosti jej reprezentácie. Ak taká nie je , vráti null.
-	 * @param paX Xová súradnica bodu
-	 * @param paY Ynová súradnica bodu
-	 * @return
-	 */
-	Hrana dajHranu(int paX, int paY);
-
 	/**
 	 * Vráti hranu (vrchol1,vrchol2) alebo {vrchol1,vrchol1}ak takáexistuje, inak vráti null;
 	 * @param vrchol1

@@ -8,11 +8,11 @@ import elementy.Vrchol;
 public class TarryhoPrehliadkaTest {
 
 	public static void main(String[] args) {
-		Vrchol a = new Vrchol(1,1,'a');
-		Vrchol b = new Vrchol(1,1,'b');
-		Vrchol c = new Vrchol(1,1,'c');
-		Vrchol d = new Vrchol(1,1,'d');
-		Vrchol e = new Vrchol(1,1,'e');
+		Vrchol a = new Vrchol("a");
+		Vrchol b = new Vrchol("b");
+		Vrchol c = new Vrchol("c");
+		Vrchol d = new Vrchol("d");
+		Vrchol e = new Vrchol("e");
 		
 		Hrana ad = new Hrana(a,d,0,false);
 		Hrana ac = new Hrana(a,c,0,false);
@@ -36,7 +36,7 @@ public class TarryhoPrehliadkaTest {
 		graf.vlozVrchol(d);
 		graf.vlozVrchol(e);
 		
-		TarryhoPrehliadka prehliadka = new TarryhoPrehliadka(graf);
+		TarryhoPrehliadka prehliadka = new TarryhoPrehliadka(graf,a);
 		for(Hrana hrana : prehliadka.vytvorSledPodlaTarryho(a)) {
 			System.out.println(hrana.toString());
 		}
