@@ -10,6 +10,7 @@ import java.awt.*;
  * Created by Chudjak Kristián on 20.10.2016.
  */
 
+@SuppressWarnings("serial")
 public class Vrchol extends PPath {
 
     private boolean isPressed = false;

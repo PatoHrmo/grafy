@@ -7,6 +7,7 @@ import edu.umd.cs.piccolo.nodes.PPath;
 /**
  * Created by Chudjak Kristián on 20.10.2016.
  */
+@SuppressWarnings("serial")
 public class Hrana extends PPath{
     private Vrchol vrchol01;
     private Vrchol vrchol02;

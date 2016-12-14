@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+@SuppressWarnings("serial")
 public class Platno extends PFrame {
 
     private PLayer vrcholVrstva;
@@ -120,10 +121,10 @@ public class Platno extends PFrame {
 
     }
 
-    private void vymazHranyPreVrchol(Vrchol vrchol) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	private void vymazHranyPreVrchol(Vrchol vrchol) {
         ArrayList<Hrana> hranyNaVymazanie = new ArrayList<>();
-        ArrayList<PNode> list = (ArrayList) hranyVrstva.getChildrenReference();
-
+		ArrayList<PNode> list = (ArrayList) hranyVrstva.getChildrenReference();
         for (PNode node : list){
             if(node instanceof Hrana){
                 Hrana hrana = (Hrana)node;
@@ -140,7 +141,8 @@ public class Platno extends PFrame {
 
     }
 
-    private void repaintHrany() {
+    @SuppressWarnings("unchecked")
+	private void repaintHrany() {
         for (Iterator<Hrana> iter = hranyVrstva.getChildrenIterator(); iter.hasNext(); ) {
             iter.next().paint();
         }

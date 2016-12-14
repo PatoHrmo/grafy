@@ -45,7 +45,8 @@ public class Kostra extends Algoritmus {
      */
     private void hladajKostru() {
         //inicializacia znaciek
-        int cenaKostry = 0;
+        @SuppressWarnings("unused")
+		int cenaKostry = 0;
         int znacka = 1;
         for (Vrchol vrchol : graf.getVrcholy()) {
             vrchol.setZnacka(znacka);
