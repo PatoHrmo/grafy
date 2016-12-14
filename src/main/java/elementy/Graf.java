@@ -1,14 +1,12 @@
 package elementy;
 
 import java.awt.Color;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.shape.Circle;
 
 
-@SuppressWarnings("restriction")
+
 public class Graf implements IGraf{
 
     private List<Vrchol> vrcholy; // indexovaný zoznam vrcholov
