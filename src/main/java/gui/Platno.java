@@ -1,7 +1,7 @@
 /**
  * Created by Chudjak Kristián on 20.10.2016.
  */
-
+package gui;
 import edu.umd.cs.piccolo.*;
 import edu.umd.cs.piccolo.event.*;
 import edu.umd.cs.piccolo.nodes.PText;

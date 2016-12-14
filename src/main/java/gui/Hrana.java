@@ -1,9 +1,9 @@
-import edu.umd.cs.piccolo.PNode;
-import edu.umd.cs.piccolo.nodes.PPath;
+package gui;
+
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-
+import edu.umd.cs.piccolo.nodes.PPath;
 /**
  * Created by Chudjak Kristián on 20.10.2016.
  */

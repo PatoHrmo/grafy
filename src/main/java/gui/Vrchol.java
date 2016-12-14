@@ -1,12 +1,10 @@
-
-import edu.umd.cs.piccolo.*;
+package gui;
 import edu.umd.cs.piccolo.event.*;
 import edu.umd.cs.piccolo.nodes.*;
 import edu.umd.cs.piccolo.util.*;
-import edu.umd.cs.piccolox.*;
+
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by Chudjak Kristián on 20.10.2016.
