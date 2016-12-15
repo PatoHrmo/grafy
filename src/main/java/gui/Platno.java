@@ -5,6 +5,7 @@ package gui;
 import edu.umd.cs.piccolo.*;
 import edu.umd.cs.piccolo.event.*;
 import edu.umd.cs.piccolo.nodes.PText;
+import edu.umd.cs.piccolo.util.PPaintContext;
 import edu.umd.cs.piccolox.*;
 
 import java.awt.*;
@@ -26,12 +27,18 @@ public class Platno extends PFrame {
     private PLayer textVrstva;
     private boolean vytvaramHranu = false;
     private boolean vymazVrchol = false;
+    private Label label;
 
-    private Vrchol[] vrcholyPreHranu;
+    private GUIVrchol[] vrcholyPreHranu;
 
     public Platno() {
         setSize(1200, 720);
-        vrcholyPreHranu = new Vrchol[2];
+        vrcholyPreHranu = new GUIVrchol[2];
+        getCanvas().setAnimatingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
+        getCanvas().setInteractingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
+        getCanvas().setDefaultRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
+
+
 
         vrcholVrstva = getCanvas().getLayer();
 
@@ -65,10 +72,14 @@ public class Platno extends PFrame {
         getCanvas().setPanEventHandler(null);
 //        getCanvas().addInputEventListener(new PDragEventHandler());
 
-
+/*
         PNode text = new PText("Klikni na vrchol pre vymazanie");
         text.setBounds(5, 640, 50, 50);
         textVrstva.addChild(text);
+        */
+        label = new Label("Klikni na vrchol pre vymazanie");
+        label.setBounds(5, 640, 200, 50);
+        add(label);
 
         nacitajData();
     }
@@ -95,15 +106,15 @@ public class Platno extends PFrame {
                 super.mouseClicked(event);
 
                 if (vymazVrchol) {
-                    Vrchol vrchol = (Vrchol) event.getPickedNode();
+                    GUIVrchol vrchol = (GUIVrchol) event.getPickedNode();
                     vrcholVrstva.removeChild(vrchol);
                     vymazHranyPreVrchol(vrchol);
                 } else if (vytvaramHranu) {
 
                     PNode vrchol = event.getPickedNode();
-                    if (vrchol instanceof Vrchol) {
-                        if (vrcholyPreHranu[0] == null) vrcholyPreHranu[0] = (Vrchol) vrchol;
-                        else if (vrcholyPreHranu[1] == null) vrcholyPreHranu[1] = (Vrchol) vrchol;
+                    if (vrchol instanceof GUIVrchol) {
+                        if (vrcholyPreHranu[0] == null) vrcholyPreHranu[0] = (GUIVrchol) vrchol;
+                        else if (vrcholyPreHranu[1] == null) vrcholyPreHranu[1] = (GUIVrchol) vrchol;
 
                     }
 
@@ -122,19 +133,19 @@ public class Platno extends PFrame {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	private void vymazHranyPreVrchol(Vrchol vrchol) {
-        ArrayList<Hrana> hranyNaVymazanie = new ArrayList<>();
+	private void vymazHranyPreVrchol(GUIVrchol vrchol) {
+        ArrayList<GUIHrana> hranyNaVymazanie = new ArrayList<>();
 		ArrayList<PNode> list = (ArrayList) hranyVrstva.getChildrenReference();
         for (PNode node : list){
-            if(node instanceof Hrana){
-                Hrana hrana = (Hrana)node;
+            if(node instanceof GUIHrana){
+                GUIHrana hrana = (GUIHrana)node;
                 if (hrana.obsahujeVrchol(vrchol)) {
                     hranyNaVymazanie.add(hrana);
                 }
             }
         }
 
-        for (Hrana hrana: hranyNaVymazanie){
+        for (GUIHrana hrana: hranyNaVymazanie){
             hranyVrstva.removeChild(hrana);
         }
 
@@ -143,16 +154,19 @@ public class Platno extends PFrame {
 
     @SuppressWarnings("unchecked")
 	private void repaintHrany() {
-        for (Iterator<Hrana> iter = hranyVrstva.getChildrenIterator(); iter.hasNext(); ) {
-            iter.next().paint();
+        for(Iterator<GUIHrana> iter = hranyVrstva.getChildrenIterator(); iter.hasNext();) {
+            iter.next().update();
         }
     }
+
+
+
 
     private int pocVrcholovX = 0;
     private int pocVrcholovY = 0;
 
 
-    public void pridajVrchol(Vrchol vrchol){
+    public void pridajVrchol(GUIVrchol vrchol){
         vrchol.setPossition(120*pocVrcholovX,120*pocVrcholovY);
         vrcholVrstva.addChild(vrchol);
         pocVrcholovX++;
@@ -162,25 +176,29 @@ public class Platno extends PFrame {
         }
     }
 
-    private void pridajHranu(Vrchol v1, Vrchol v2) {
-        Hrana hrana = new Hrana(v1, v2);
+    private void pridajHranu(GUIVrchol v1, GUIVrchol v2) {
+        GUIHrana hrana = new GUIHrana(v1, v2);
         hranyVrstva.addChild(hrana);
-        hrana.paint();
+
+        repaintHrany();
+        /*hrana.update();*/
 
     }
 
     private void vymazHranuButton() {
-        Button btnVymazVrchol = new Button("Vymaz Vrchol");
+        Button btnVymazVrchol = new Button("Vymaz GUIVrchol");
         btnVymazVrchol.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vymazVrchol = !vymazVrchol;
-                textVrstva.getChild(0).setVisible(vymazVrchol);
+                //textVrstva.getChild(0).setVisible(vymazVrchol);
+                label.setVisible(vymazVrchol);
 
             }
         });
         btnVymazVrchol.setBounds(5, 600, 120, 30);
         add(btnVymazVrchol);
+
     }
 
     private void vytvorHranuButton() {
@@ -196,11 +214,11 @@ public class Platno extends PFrame {
     }
 
     private void pridajVrcholButton() {
-        Button b = new Button("Pridaj Vrchol");
+        Button b = new Button("Pridaj GUIVrchol");
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Vrchol ts = new Vrchol(100);
+                GUIVrchol ts = new GUIVrchol(100);
                 vrcholVrstva.addChild(ts);
             }
         });
@@ -212,15 +230,15 @@ public class Platno extends PFrame {
 
     private void nacitajData() {
         try(BufferedReader bfr = new BufferedReader(new FileReader("data.txt"))){
-            HashMap<Integer,Vrchol> nacitaneVrcholy = new HashMap<>();
+            HashMap<Integer, GUIVrchol> nacitaneVrcholy = new HashMap<>();
 
             String line;
-            Vrchol v1;
-            Vrchol v2;
+            GUIVrchol v1;
+            GUIVrchol v2;
             while((line = bfr.readLine() )!= null){
                 String[] data = line.split("\\s+");
-                v1 = new Vrchol(Integer.valueOf(data[0]));
-                v2 = new Vrchol(Integer.valueOf(data[1]));
+                v1 = new GUIVrchol(Integer.valueOf(data[0]));
+                v2 = new GUIVrchol(Integer.valueOf(data[1]));
                 if(nacitaneVrcholy.containsKey(v1.getId())){
                     v1 = nacitaneVrcholy.get(v1.getId());
                 }else{

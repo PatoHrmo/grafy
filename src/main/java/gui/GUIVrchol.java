@@ -11,16 +11,18 @@ import java.awt.*;
  */
 
 @SuppressWarnings("serial")
-public class Vrchol extends PPath {
+public class GUIVrchol extends PPath {
 
     private boolean isPressed = false;
     private Color color = new Color(60,39,53);
     private Color colorPressed = new Color(50,40,50);
     private int id;
+    private float velkost = 50;
 
 
-    public Vrchol(int id) {
-        setPathToEllipse(0, 0, 50, 50);
+    public GUIVrchol(int id) {
+
+        setPathToEllipse(0, 0, velkost, velkost);
         this.id = id;
 
         addInputEventListener(new PBasicInputEventHandler() {
@@ -36,8 +38,9 @@ public class Vrchol extends PPath {
             }
         });
     }
+
     public void setPossition( float x,float y){
-        setPathToEllipse(x, y, 50, 50);
+        setPathToEllipse(x, y, velkost, velkost);
     }
 
     protected void paint(PPaintContext paintContext) {
@@ -53,5 +56,9 @@ public class Vrchol extends PPath {
 
     public int getId() {
         return id;
+    }
+
+    public float getVelkost() {
+        return velkost;
     }
 }
