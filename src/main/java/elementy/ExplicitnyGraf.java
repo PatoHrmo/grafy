@@ -7,7 +7,7 @@ import java.util.List;
 
 
 
-public class Graf implements IGraf{
+public class ExplicitnyGraf implements IGraf{
 
     private List<Vrchol> vrcholy; // indexovaný zoznam vrcholov
     private List<Hrana> hrany; // indexovanýzoznam hrán
@@ -15,10 +15,20 @@ public class Graf implements IGraf{
     /**
      * Vytvorí nový prázdny graf
      */
-    public Graf() {
+    public ExplicitnyGraf() {
     	vrcholy = new ArrayList<>();
     	hrany = new ArrayList<>();
         //konštruktor   
+    }
+    private ExplicitnyGraf (ExplicitnyGraf graf) {
+    	vrcholy = new ArrayList<>();
+    	hrany = new ArrayList<>();
+    	for(Vrchol vrchol : graf.vrcholy) {
+    		vrcholy.add(vrchol.clone());
+    	}
+    	for(Hrana hrana : graf.hrany) {
+    		hrany.add(hrana.clone());
+    	}
     }
 
     /* (non-Javadoc)
@@ -110,6 +120,10 @@ public class Graf implements IGraf{
         for (Hrana hrana : hrany) {
             hrana.setFarba(Color.gray);
         }
+    }
+    
+    public ExplicitnyGraf clone() {
+    	return new ExplicitnyGraf(this);
     }
 
 }

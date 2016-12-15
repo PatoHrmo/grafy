@@ -55,5 +55,7 @@ public interface IGraf {
 	 * nastaví farbu všetkých komponentov grafu na sivú
 	 */
 	void odfarbiGraf();
+	
+	IGraf clone();
 
 }

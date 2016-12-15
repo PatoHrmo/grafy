@@ -5,6 +5,9 @@
  */
 package algoritmy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import elementy.IGraf;
 
 /**
@@ -17,7 +20,7 @@ public abstract class Algoritmus {
      * graf nad ktorým sa algoritmus vykonáva
      */
     protected IGraf graf;
-
+    protected List<Object> krokyAlgoritmu;
 
     /**
      *
@@ -28,6 +31,7 @@ public abstract class Algoritmus {
      */
     public Algoritmus(IGraf graf) {
         this.graf = graf;
+        krokyAlgoritmu = new ArrayList<>();
     }
     
     /**

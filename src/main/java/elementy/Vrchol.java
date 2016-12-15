@@ -5,7 +5,6 @@
  */
 package elementy;
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,8 +12,7 @@ import java.util.List;
  * Pamätá si súradnice vrcholu v diagrame, názov a farbu akou bude vyznaèený poprípade iné atribúty, ktoré si zadal užívate¾.
  * @author Erik
  */
-@SuppressWarnings("serial")
-public class Vrchol implements Serializable{
+public class Vrchol implements Cloneable {
     
     private String nazov;
     
@@ -36,6 +34,20 @@ public class Vrchol implements Serializable{
         this.nazov = paNazov;
         this.bolNavstiveny = false;
         this.incidentneHrany = new LinkedList<>();
+    }
+    private Vrchol(Vrchol Vrchol) {
+    	this.nazov = Vrchol.nazov;
+    	this.znacka = Vrchol.znacka;
+    	this.pomBoolean = Vrchol.pomBoolean;
+    	this.bolNavstiveny = Vrchol.bolNavstiveny;
+    	if(Vrchol.pomVrchol!=null) {
+    		this.pomVrchol = Vrchol.pomVrchol.clone();
+    	}
+    	this.farba = new Color(Vrchol.farba.getRGB());
+    	this.incidentneHrany = new LinkedList<>();
+    	for(Hrana hrana : Vrchol.incidentneHrany) {
+    		this.incidentneHrany.add(hrana.clone());
+    	}
     }
     
    
@@ -100,9 +112,9 @@ public class Vrchol implements Serializable{
      * Nastaví hodnotu pomocného boolean atribútu ktorý používam v algoritmoch.
      * @param pomBoolean nová farba vrcholu
      */
-    public void setPomBoolean(boolean pomBoolean) {
-        this.pomBoolean = pomBoolean;
-    }
+//    public void setPomBoolean(boolean pomBoolean) {
+//        this.pomBoolean = pomBoolean;
+//    }
 
     /**
      * Vráti pomocný vrchol, väèšinou používam na uchovanie predošlého vrcholu v ceste v niektorích algoritmoch.
@@ -146,10 +158,7 @@ public class Vrchol implements Serializable{
     public void vymazIncidentnuHranu(Hrana hrana) {
         incidentneHrany.remove(hrana);
     }
-    
-    public Hrana dajPrvuIncidentuHranu() {
-        if(incidentneHrany.isEmpty())
-            return null;
-        return incidentneHrany.get(0);
+    public Vrchol clone() {
+    	return new Vrchol(this);
     }
 }

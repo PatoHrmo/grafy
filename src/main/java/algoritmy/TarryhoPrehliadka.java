@@ -28,7 +28,7 @@ public class TarryhoPrehliadka extends Algoritmus {
         Vrchol poslednyVrcholSledu;
         Hrana poslednaHranaSledu;
         // krok 1
-        Hrana uvodnaHrana = vrchol.dajPrvuIncidentuHranu();
+        Hrana uvodnaHrana = vrchol.getIncidentneHrany().get(0);
         if (uvodnaHrana == null) {
             return vyslednySled;
         }
