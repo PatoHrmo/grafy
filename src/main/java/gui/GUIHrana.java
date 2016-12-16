@@ -21,14 +21,16 @@ import javafx.scene.transform.Affine;
 public class GUIHrana extends PPath {
     private GUIVrchol vrchol01;
     private GUIVrchol vrchol02;
+    private Hrana hrana;
 
     private boolean orientovana;
     private ArrowNode arrow;
 
 
-    public GUIHrana(GUIVrchol v1, GUIVrchol v2) {
+    public GUIHrana(GUIVrchol v1, GUIVrchol v2,Hrana hrana) {
         this.vrchol01 = v1;
         this.vrchol02 = v2;
+        this.hrana = hrana;
 
         BasicStroke bs = new BasicStroke(5);
 
@@ -42,7 +44,7 @@ public class GUIHrana extends PPath {
 
     public void update() {
 
-        setStrokePaint(Color.RED);
+        setStrokePaint(hrana.getFarba());
         Point2D start = vrchol01.getFullBoundsReference().getCenter2D();
         Point2D end = vrchol02.getFullBoundsReference().getCenter2D();
 

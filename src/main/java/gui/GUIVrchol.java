@@ -2,6 +2,7 @@ package gui;
 import edu.umd.cs.piccolo.event.*;
 import edu.umd.cs.piccolo.nodes.*;
 import edu.umd.cs.piccolo.util.*;
+import elementy.Vrchol;
 
 
 import java.awt.*;
@@ -14,17 +15,14 @@ import java.awt.*;
 public class GUIVrchol extends PPath {
 
     private boolean isPressed = false;
-    private Color color = new Color(60,39,53);
     private Color colorPressed = new Color(50,40,50);
-    private int id;
     private float velkost = 50;
+    private Vrchol vrchol;
 
-
-    public GUIVrchol(int id) {
+    public GUIVrchol(Vrchol vrchol) {
+        this.vrchol = vrchol;
 
         setPathToEllipse(0, 0, velkost, velkost);
-        this.id = id;
-
         addInputEventListener(new PBasicInputEventHandler() {
             public void mousePressed(PInputEvent event) {
                 super.mousePressed(event);
@@ -47,15 +45,19 @@ public class GUIVrchol extends PPath {
         if (isPressed) {
             super.paint(paintContext);
             setPaint(colorPressed);
-
         } else {
             super.paint(paintContext);
-            setPaint(color);
+
+            setPaint(vrchol.getFarba());
         }
     }
 
-    public int getId() {
-        return id;
+    public String getNazov(){
+        return vrchol.getNazov();
+    }
+
+    public Vrchol getVrchol() {
+        return vrchol;
     }
 
     public float getVelkost() {

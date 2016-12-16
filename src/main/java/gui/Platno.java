@@ -2,12 +2,18 @@
  * Created by Chudjak Kristián on 20.10.2016.
  */
 package gui;
+import algoritmy.Kostra;
+import algoritmy.TarryhoPrehliadka;
 import edu.umd.cs.piccolo.*;
 import edu.umd.cs.piccolo.event.*;
-import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;
 import edu.umd.cs.piccolox.*;
+import elementy.ExplicitnyGraf;
+import elementy.Hrana;
+import elementy.IGraf;
+import elementy.Vrchol;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +34,7 @@ public class Platno extends PFrame {
     private boolean vytvaramHranu = false;
     private boolean vymazVrchol = false;
     private Label label;
+    private IGraf graf;
 
     private GUIVrchol[] vrcholyPreHranu;
 
@@ -38,6 +45,7 @@ public class Platno extends PFrame {
         getCanvas().setInteractingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
         getCanvas().setDefaultRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
 
+        this.graf = new ExplicitnyGraf();
 
 
         vrcholVrstva = getCanvas().getLayer();
@@ -51,11 +59,13 @@ public class Platno extends PFrame {
         vytvorHranuButton();
 
         // vymaz vrchol button
-        vymazHranuButton();
+        vymazVrcholButton();
+
+        //
+        kostraPrehliadkaButton();
 
 
     }
-
 
 
     public void initialize() {
@@ -72,11 +82,6 @@ public class Platno extends PFrame {
         getCanvas().setPanEventHandler(null);
 //        getCanvas().addInputEventListener(new PDragEventHandler());
 
-/*
-        PNode text = new PText("Klikni na vrchol pre vymazanie");
-        text.setBounds(5, 640, 50, 50);
-        textVrstva.addChild(text);
-        */
         label = new Label("Klikni na vrchol pre vymazanie");
         label.setBounds(5, 640, 200, 50);
         add(label);
@@ -152,6 +157,21 @@ public class Platno extends PFrame {
 
     }
 
+
+    private void kostraPrehliadkaButton() {
+        Button b = new Button("Kostra");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Kostra kostra = new Kostra(graf,true);
+                kostra.spravAlgoritmus();
+            }
+        });
+        b.setBounds(150, 500, 120, 30);
+        add(b);
+    }
+
+
     @SuppressWarnings("unchecked")
 	private void repaintHrany() {
         for(Iterator<GUIHrana> iter = hranyVrstva.getChildrenIterator(); iter.hasNext();) {
@@ -177,16 +197,18 @@ public class Platno extends PFrame {
     }
 
     private void pridajHranu(GUIVrchol v1, GUIVrchol v2) {
-        GUIHrana hrana = new GUIHrana(v1, v2);
-        hranyVrstva.addChild(hrana);
+        if(v1.getNazov().equals(v2.getNazov())) return ;
+        Hrana hrana = graf.dajHranu(v1.getVrchol(),v2.getVrchol());
+        GUIHrana guiHrana = new GUIHrana(v1, v2,hrana);
+        hranyVrstva.addChild(guiHrana);
 
         repaintHrany();
         /*hrana.update();*/
 
     }
 
-    private void vymazHranuButton() {
-        Button btnVymazVrchol = new Button("Vymaz GUIVrchol");
+    private void vymazVrcholButton() {
+        Button btnVymazVrchol = new Button("Vymaz Vrchol");
         btnVymazVrchol.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,11 +236,14 @@ public class Platno extends PFrame {
     }
 
     private void pridajVrcholButton() {
-        Button b = new Button("Pridaj GUIVrchol");
+        Button b = new Button("Pridaj Vrchol");
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GUIVrchol ts = new GUIVrchol(100);
+                String name = JOptionPane.showInputDialog("Zadaj nazov vrchola.");
+                if(graf.vrcholExistuje(name) || name.equals("null")) return ;
+                Vrchol vrchol = graf.dajVrchol(name);
+                GUIVrchol ts = new GUIVrchol(vrchol);
                 vrcholVrstva.addChild(ts);
             }
         });
@@ -230,30 +255,32 @@ public class Platno extends PFrame {
 
     private void nacitajData() {
         try(BufferedReader bfr = new BufferedReader(new FileReader("data.txt"))){
-            HashMap<Integer, GUIVrchol> nacitaneVrcholy = new HashMap<>();
+            HashMap<String, GUIVrchol> nacitaneVrcholy = new HashMap<>();
 
             String line;
-            GUIVrchol v1;
-            GUIVrchol v2;
+            GUIVrchol guiV1;
+            GUIVrchol guiV2;
             while((line = bfr.readLine() )!= null){
                 String[] data = line.split("\\s+");
-                v1 = new GUIVrchol(Integer.valueOf(data[0]));
-                v2 = new GUIVrchol(Integer.valueOf(data[1]));
-                if(nacitaneVrcholy.containsKey(v1.getId())){
-                    v1 = nacitaneVrcholy.get(v1.getId());
+                Vrchol v1 = graf.dajVrchol(data[0]);
+                Vrchol v2 = graf.dajVrchol(data[1]);
+                guiV1 = new GUIVrchol(v1);
+                guiV2 = new GUIVrchol(v2);
+
+                if(nacitaneVrcholy.containsKey(guiV1.getNazov())){
+                    guiV1 = nacitaneVrcholy.get(guiV1.getNazov());
                 }else{
-                    nacitaneVrcholy.put(v1.getId(),v1);
-                    pridajVrchol(v1);
+                    nacitaneVrcholy.put(guiV1.getNazov(),guiV1);
+                    pridajVrchol(guiV1);
                 }
-                if(nacitaneVrcholy.containsKey(v2.getId())){
-                    v2 = nacitaneVrcholy.get(v2.getId());
+                if(nacitaneVrcholy.containsKey(guiV2.getNazov())){
+                    guiV2 = nacitaneVrcholy.get(guiV2.getNazov());
                 }else{
-                    nacitaneVrcholy.put(v2.getId(),v2);
-                    pridajVrchol(v2);
+                    nacitaneVrcholy.put(guiV2.getNazov(),guiV2);
+                    pridajVrchol(guiV2);
                 }
 
-
-                pridajHranu(v1,v2);
+                pridajHranu(guiV1,guiV2);
 
 
             }
