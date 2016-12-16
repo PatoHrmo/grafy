@@ -38,7 +38,7 @@ public class Dijkstrov extends Algoritmus {
         for (Vrchol vrchol : graf.getVrcholy()) {
             vrchol.setZnacka(Integer.MAX_VALUE);
         }
-
+        
         Vrchol riadiaciVrchol = aVrchol;
         aVrchol.setZnacka(0);
         aVrchol.zafarbi();
@@ -75,6 +75,7 @@ public class Dijkstrov extends Algoritmus {
                 }
             }
             riadiaciVrchol.zafarbi();
+            this.krokyAlgoritmu.add(graf.clone());
         }  
     }
 

@@ -12,14 +12,14 @@ import java.util.HashMap;
  * Reprezentuje hranu grafu, sklad· sa z dvoch vrcholov, mÙûe byù orientovan·, m· svoju cenu poprÌpade Ôalöie atrib˙ty ktorÈ sizadal pouûÌvateæ.
  * @author Erik
  */
-public class Hrana{
+public class Hrana implements Cloneable{
     private Vrchol vrchol1;
     private Vrchol vrchol2;
     private boolean oriantovana;
     private double cena;
     private Color farba = Color.gray;
     @SuppressWarnings("rawtypes")
-	private HashMap atributy = new HashMap();
+	//private HashMap atributy = new HashMap();
     private boolean pouzitaZVrcholu1DoVrcholu2;
     private boolean pouzitaZVrcholu2DoVrcholu1;
     private boolean hranaPrvehoPrichodu;
@@ -29,10 +29,10 @@ public class Hrana{
      * Vr·ti atrib˙ty hrany.
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public HashMap getAtrib˙ty() {
-        return atributy;
-    }
+//    @SuppressWarnings("rawtypes")
+//	public HashMap getAtrib˙ty() {
+//        return atributy;
+//    }
 
     /**
      * Vr·ti farbu hrany.
@@ -93,7 +93,18 @@ public class Hrana{
         this.pouzitaZVrcholu2DoVrcholu1 = false;
     }
     
-    /**
+    private Hrana(Hrana hrana) {
+		this.vrchol1 = hrana.vrchol1.clone();
+		this.vrchol2 = hrana.vrchol2.clone();
+		this.cena = hrana.cena;
+		this.oriantovana = hrana.oriantovana;
+		this.hranaPrvehoPrichodu = hrana.hranaPrvehoPrichodu;
+		this.pouzitaZVrcholu1DoVrcholu2 = hrana.pouzitaZVrcholu1DoVrcholu2;
+		this.pouzitaZVrcholu2DoVrcholu1 = hrana.pouzitaZVrcholu2DoVrcholu1;
+		this.farba = new Color(hrana.farba.getRGB());
+	}
+
+	/**
      * Vr·ti prv˝ vrchol hrany.
      * @return
      */
@@ -169,6 +180,10 @@ public class Hrana{
 
     public void setHranaPrvehoPrichodu(boolean hranaPrvehoPrichodu) {
         this.hranaPrvehoPrichodu = hranaPrvehoPrichodu;
+    }
+    
+    public Hrana clone() {
+    	return new Hrana(this);
     }
 
 }

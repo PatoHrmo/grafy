@@ -52,6 +52,7 @@ public class PrehladavanieDoHlbky extends Algoritmus {
                 hrana.setFarba(Color.red);
                 prehladavanieDoHlbky(hrana.getVrchol1());
             }
+            krokyAlgoritmu.add(graf.clone());
         }
     }
     

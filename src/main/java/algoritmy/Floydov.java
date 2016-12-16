@@ -76,6 +76,7 @@ public class Floydov extends Algoritmus {
                             x[i][j] = x[k][j];
                         }
                     }
+                    this.krokyAlgoritmu.add(c);
                 }
             }
         }
