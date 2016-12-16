@@ -67,6 +67,7 @@ public class PrehladavanieDoSirky extends Algoritmus{
 
             }
         }
+        krokyAlgoritmu.add(graf.clone());
         vrcholy.remove(0);
         prehladavanieDoSirky(vrcholy);
     }

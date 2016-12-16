@@ -33,6 +33,9 @@ public abstract class Algoritmus {
         this.graf = graf;
         krokyAlgoritmu = new ArrayList<>();
     }
+    public List<Object> getKrokyAlgoritmu() {
+    	return krokyAlgoritmu;
+    }
     
     /**
      * metóda,ktorá sa volá pri spúšťní algoritmu

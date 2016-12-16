@@ -83,6 +83,7 @@ public class TarryhoPrehliadka extends Algoritmus {
             } else {
                 koniec = true;
             }
+            krokyAlgoritmu.add(graf.clone());
         }
 
         // nastav naspat defaultne hodnoty

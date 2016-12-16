@@ -71,6 +71,7 @@ public class Kostra extends Algoritmus {
                 hrana.getVrchol1().setFarba(generujFarbu((int) mensiaZnacka));
                 hrana.getVrchol2().setFarba(generujFarbu((int) mensiaZnacka));
             }
+            krokyAlgoritmu.add(graf.clone());
         }
     }
 
