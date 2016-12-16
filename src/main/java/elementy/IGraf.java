@@ -51,9 +51,14 @@ public interface IGraf {
 	 */
 	Hrana dajHranu(Vrchol vrchol1, Vrchol vrchol2);
 
+	Vrchol dajVrchol(String nazovVrcholu);
+	boolean vrcholExistuje(String nazovVrcholu);
+
 	/**
 	 * nastaví farbu všetkých komponentov grafu na sivú
 	 */
 	void odfarbiGraf();
+	
+	IGraf clone();
 
 }

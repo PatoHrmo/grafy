@@ -9,20 +9,20 @@ import java.util.List;
 
 public class Graf implements IGraf{
 
-    private List<Vrchol> vrcholy; // indexovaný zoznam vrcholov
-    private List<Hrana> hrany; // indexovanýzoznam hrán
+    private List<Vrchol> vrcholy; // indexovanï¿½ zoznam vrcholov
+    private List<Hrana> hrany; // indexovanï¿½zoznam hrï¿½n
 
     /**
-     * Vytvorí nový prázdny graf
+     * Vytvorï¿½ novï¿½ prï¿½zdny graf
      */
     public Graf() {
     	vrcholy = new ArrayList<>();
     	hrany = new ArrayList<>();
-        //konštruktor   
+        //konï¿½truktor   
     }
 
     /* (non-Javadoc)
-	 * @see elementy.IGraf#vlozVrchol(elementy.Vrchol)
+	 * @see elementy.IGraf#vlozVrchol(elementy.GUIVrchol)
 	 */
     @Override
 	public boolean vlozVrchol(Vrchol paVrchol) {
@@ -31,7 +31,7 @@ public class Graf implements IGraf{
     }
 
     /* (non-Javadoc)
-	 * @see elementy.IGraf#vlozHranu(elementy.Hrana)
+	 * @see elementy.IGraf#vlozHranu(elementy.GUIHrana)
 	 */
     @Override
 	public boolean vlozHranu(Hrana paHrana) {
@@ -44,7 +44,7 @@ public class Graf implements IGraf{
 
     
     /* (non-Javadoc)
-	 * @see elementy.IGraf#odstranVrchol(elementy.Vrchol)
+	 * @see elementy.IGraf#odstranVrchol(elementy.GUIVrchol)
 	 */
     @Override
 	public void odstranVrchol(Vrchol paVrchol) {
@@ -75,7 +75,7 @@ public class Graf implements IGraf{
     }
 
     /* (non-Javadoc)
-	 * @see elementy.IGraf#odstranHranu(elementy.Hrana)
+	 * @see elementy.IGraf#odstranHranu(elementy.GUIHrana)
 	 */
     @Override
 	public void odstranHranu(Hrana hrana) {
@@ -87,7 +87,7 @@ public class Graf implements IGraf{
    
 
     /* (non-Javadoc)
-	 * @see elementy.IGraf#dajHranu(elementy.Vrchol, elementy.Vrchol)
+	 * @see elementy.IGraf#dajHranu(elementy.GUIVrchol, elementy.GUIVrchol)
 	 */
     @Override
 	public Hrana dajHranu(Vrchol vrchol1, Vrchol vrchol2) {
@@ -97,6 +97,16 @@ public class Graf implements IGraf{
             }
         }
         return null;
+    }
+
+    @Override
+    public Vrchol dajVrchol(String nazovVrcholu) {
+        return null;
+    }
+
+    @Override
+    public boolean vrcholExistuje(String nazovVrcholu) {
+        return false;
     }
 
     /* (non-Javadoc)
@@ -110,6 +120,11 @@ public class Graf implements IGraf{
         for (Hrana hrana : hrany) {
             hrana.setFarba(Color.gray);
         }
+    }
+
+    @Override
+    public IGraf clone() {
+        return null;
     }
 
 }

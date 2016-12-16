@@ -5,16 +5,14 @@
  */
 package elementy;
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Pamätá si súradnice vrcholu v diagrame, názov a farbu akou bude vyznaèený poprípade iné atribúty, ktoré si zadal užívate¾.
+ * Pamï¿½tï¿½ si sï¿½radnice vrcholu v diagrame, nï¿½zov a farbu akou bude vyznaï¿½enï¿½ poprï¿½pade inï¿½ atribï¿½ty, ktorï¿½ si zadal uï¿½ï¿½vateï¿½.
  * @author Erik
  */
-@SuppressWarnings("serial")
-public class Vrchol implements Serializable{
+public class Vrchol implements Cloneable {
     
     private String nazov;
     
@@ -27,21 +25,31 @@ public class Vrchol implements Serializable{
     private Color farba = Color.gray;
     private List<Hrana> incidentneHrany;
     /**
-     * Vytvorí nový vrchol.
-     * @param paPoziciaX poloha vrcholu na osi x
-     * @param paPoziciaY poloha vrcholu na osi y
-     * @param paNazov názov vrcholu 
+     * Vytvorï¿½ novï¿½ vrchol.
+     * @param paNazov nï¿½zov vrcholu 
      */
     public Vrchol(String paNazov) {
         this.nazov = paNazov;
         this.bolNavstiveny = false;
         this.incidentneHrany = new LinkedList<>();
     }
+    private Vrchol(Vrchol Vrchol) {
+    	this.nazov = Vrchol.nazov;
+    	this.znacka = Vrchol.znacka;
+    	this.pomBoolean = Vrchol.pomBoolean;
+    	this.bolNavstiveny = Vrchol.bolNavstiveny;
+    	if(Vrchol.pomVrchol!=null) {
+    		this.pomVrchol = Vrchol.pomVrchol.clone();
+    	}
+    	this.farba = new Color(Vrchol.farba.getRGB());
+    	this.incidentneHrany = new LinkedList<>();
+
+    }
     
    
 
     /**
-     * nastaví názov vrcholu
+     * nastavï¿½ nï¿½zov vrcholu
      * @param nazov
      */
     public void setNazov(String nazov) {
@@ -49,7 +57,7 @@ public class Vrchol implements Serializable{
     }
     
     /**
-     * Vráti názov vrcholu
+     * Vrï¿½ti nï¿½zov vrcholu
      * @return
      */
     public String getNazov() {
@@ -57,7 +65,7 @@ public class Vrchol implements Serializable{
     }
     
     /**
-     * Vráti farbu vrcholu
+     * Vrï¿½ti farbu vrcholu
      * @return
      */    
     public Color getFarba() {
@@ -65,7 +73,7 @@ public class Vrchol implements Serializable{
     }
 
     /**
-     * Nastaví farbu vrcholu
+     * Nastavï¿½ farbu vrcholu
      * @param farba
      */
     public void setFarba(Color farba) {
@@ -73,7 +81,7 @@ public class Vrchol implements Serializable{
     }
     
     /**
-     * Vráti znaèku vrcholu
+     * Vrï¿½ti znaï¿½ku vrcholu
      * @return
      */  
     public double getZnacka() {
@@ -81,7 +89,7 @@ public class Vrchol implements Serializable{
     }
 
     /**
-     * Nastaví farbu vrcholu
+     * Nastavï¿½ farbu vrcholu
      * @param znacka
      */
     public void setZnacka(double znacka) {
@@ -89,7 +97,7 @@ public class Vrchol implements Serializable{
     }
 
     /**
-     * Vráti hodnotu pomocného boolean atribútu ktorý používam v algoritmoch
+     * Vrï¿½ti hodnotu pomocnï¿½ho boolean atribï¿½tu ktorï¿½ pouï¿½ï¿½vam v algoritmoch
      * @return
      */ 
     public boolean isPomBoolean() {
@@ -97,15 +105,15 @@ public class Vrchol implements Serializable{
     }
 
     /**
-     * Nastaví hodnotu pomocného boolean atribútu ktorý používam v algoritmoch.
-     * @param pomBoolean nová farba vrcholu
+     * Nastavï¿½ hodnotu pomocnï¿½ho boolean atribï¿½tu ktorï¿½ pouï¿½ï¿½vam v algoritmoch.
+     * @param pomBoolean novï¿½ farba vrcholu
      */
-    public void setPomBoolean(boolean pomBoolean) {
-        this.pomBoolean = pomBoolean;
-    }
+//    public void setPomBoolean(boolean pomBoolean) {
+//        this.pomBoolean = pomBoolean;
+//    }
 
     /**
-     * Vráti pomocný vrchol, väèšinou používam na uchovanie predošlého vrcholu v ceste v niektorích algoritmoch.
+     * Vrï¿½ti pomocnï¿½ vrchol, vï¿½ï¿½inou pouï¿½ï¿½vam na uchovanie predoï¿½lï¿½ho vrcholu v ceste v niektorï¿½ch algoritmoch.
      * @return
      */ 
     public Vrchol getPomVrchol() {
@@ -113,15 +121,15 @@ public class Vrchol implements Serializable{
     }
     
     /**
-     * Nastaví pomocný vrchol, väèšinou používam na uchovanie predošlého vrcholu v ceste v niektorích algoritmoch.
-     * @param pomVrchol nová farba vrcholu
+     * Nastavï¿½ pomocnï¿½ vrchol, vï¿½ï¿½inou pouï¿½ï¿½vam na uchovanie predoï¿½lï¿½ho vrcholu v ceste v niektorï¿½ch algoritmoch.
+     * @param pomVrchol novï¿½ farba vrcholu
      */
     public void setPomVrchol(Vrchol pomVrchol) {
         this.pomVrchol = pomVrchol;
     }
     
     /**
-     * Nastaví farbu vrcholu na èerveno
+     * Nastavï¿½ farbu vrcholu na ï¿½erveno
      */    
     public void zafarbi(){
         farba=Color.red;
@@ -146,10 +154,7 @@ public class Vrchol implements Serializable{
     public void vymazIncidentnuHranu(Hrana hrana) {
         incidentneHrany.remove(hrana);
     }
-    
-    public Hrana dajPrvuIncidentuHranu() {
-        if(incidentneHrany.isEmpty())
-            return null;
-        return incidentneHrany.get(0);
+    public Vrchol clone() {
+    	return new Vrchol(this);
     }
 }
