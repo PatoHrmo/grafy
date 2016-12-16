@@ -3,7 +3,8 @@ package elementy;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
+
+
 
 
 public class ExplicitnyGraf implements IGraf{
@@ -20,33 +21,18 @@ public class ExplicitnyGraf implements IGraf{
         //kon�truktor   
     }
     private ExplicitnyGraf (ExplicitnyGraf graf) {
-        TreeMap<String,Vrchol> vlozene = new TreeMap<>();
-        vrcholy = new ArrayList<>();
-        hrany = new ArrayList<>();
-        for(Hrana hrana : graf.hrany) {
-            hrany.add(hrana.clone());
-        }
-        for(Hrana hrana : hrany) {
-            Vrchol v1 = hrana.getVrchol1();
-            Vrchol v2 = hrana.getVrchol2();
-            if(!vlozene.containsKey(v1.getNazov())){
-                vlozene.put(v1.getNazov(),v1);
-                vrcholy.add(v1);
-            }
-            if(!vlozene.containsKey(v2.getNazov())){
-                vlozene.put(v2.getNazov(),v2);
-                vrcholy.add(v2);
-            }
-            v1.pridajIncidentnuHranu(hrana);
-            v2.pridajIncidentnuHranu(hrana);
-
-
-        }
+    	vrcholy = new ArrayList<>();
+    	hrany = new ArrayList<>();
+    	for(Vrchol vrchol : graf.vrcholy) {
+    		vrcholy.add(vrchol.clone());
+    	}
+    	for(Hrana hrana : graf.hrany) {
+    		hrany.add(hrana.clone());
+    	}
     }
 
-
     /* (non-Javadoc)
-	 * @see elementy.IGraf#vlozVrchol(elementy.Vrchol)
+	 * @see elementy.IGraf#vlozVrchol(elementy.GUIVrchol)
 	 */
     @Override
 	public boolean vlozVrchol(Vrchol paVrchol) {
@@ -55,7 +41,7 @@ public class ExplicitnyGraf implements IGraf{
     }
 
     /* (non-Javadoc)
-	 * @see elementy.IGraf#vlozHranu(elementy.Hrana)
+	 * @see elementy.IGraf#vlozHranu(elementy.GUIHrana)
 	 */
     @Override
 	public boolean vlozHranu(Hrana paHrana) {
@@ -68,7 +54,7 @@ public class ExplicitnyGraf implements IGraf{
 
     
     /* (non-Javadoc)
-	 * @see elementy.IGraf#odstranVrchol(elementy.Vrchol)
+	 * @see elementy.IGraf#odstranVrchol(elementy.GUIVrchol)
 	 */
     @Override
 	public void odstranVrchol(Vrchol paVrchol) {
@@ -99,7 +85,7 @@ public class ExplicitnyGraf implements IGraf{
     }
 
     /* (non-Javadoc)
-	 * @see elementy.IGraf#odstranHranu(elementy.Hrana)
+	 * @see elementy.IGraf#odstranHranu(elementy.GUIHrana)
 	 */
     @Override
 	public void odstranHranu(Hrana hrana) {
@@ -111,7 +97,7 @@ public class ExplicitnyGraf implements IGraf{
    
 
     /* (non-Javadoc)
-	 * @see elementy.IGraf#dajHranu(elementy.Vrchol, elementy.Vrchol)
+	 * @see elementy.IGraf#dajHranu(elementy.GUIVrchol, elementy.GUIVrchol)
 	 */
     @Override
 	public Hrana dajHranu(Vrchol vrchol1, Vrchol vrchol2) {
@@ -120,30 +106,16 @@ public class ExplicitnyGraf implements IGraf{
                 return hrana;
             }
         }
-        Hrana hrana = new Hrana(vrchol1,vrchol2,0,false);
-        vlozHranu(hrana);
-        return hrana;
+        return null;
     }
 
     @Override
     public Vrchol dajVrchol(String nazovVrcholu) {
-        for (Vrchol vrchol :
-                vrcholy) {
-            if (vrchol.getNazov().equals(nazovVrcholu))
-            return vrchol;
-        }
-        Vrchol vrchol = new Vrchol(nazovVrcholu);
-        vrcholy.add(vrchol);
-        return vrchol;
+        return null;
     }
 
     @Override
     public boolean vrcholExistuje(String nazovVrcholu) {
-        for (Vrchol vrchol :
-                vrcholy) {
-            if (vrchol.getNazov().equals(nazovVrcholu))
-                return true;
-        }
         return false;
     }
 
@@ -162,6 +134,11 @@ public class ExplicitnyGraf implements IGraf{
     
     public ExplicitnyGraf clone() {
     	return new ExplicitnyGraf(this);
+    }
+
+    @Override
+    public IGraf clone() {
+        return null;
     }
 
 }
