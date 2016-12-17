@@ -73,13 +73,16 @@ public class ExplicitnyGraf implements IGraf{
 	 */
     @Override
 	public void odstranVrchol(Vrchol paVrchol) {
+        List<Hrana> hranyNaVymazanie = new ArrayList<>();
         for (Hrana hrana : hrany) {
             if (hrana.getVrchol1() == paVrchol || hrana.getVrchol2() == paVrchol) {
-                hrany.remove(hrana);
+                hranyNaVymazanie.add(hrana);
                 hrana.getVrchol1().vymazIncidentnuHranu(hrana);
                 hrana.getVrchol2().vymazIncidentnuHranu(hrana);
             }
         }
+
+        hrany.removeAll(hranyNaVymazanie);
         vrcholy.remove(paVrchol);
     }
 

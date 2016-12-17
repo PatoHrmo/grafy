@@ -92,8 +92,8 @@ public class GUIHrana extends PPath {
 
         private PPath redrawArrow(Point2D start, Point2D end,float velkostVrchola) {
 
-            arrow.setPaint(Color.RED);
-            arrow.setStrokePaint(Color.RED);
+            arrow.setPaint(hrana.getFarba());
+            arrow.setStrokePaint(hrana.getFarba());
 
             double x1 = start.getX();
             double y1 = start.getY();
@@ -135,7 +135,25 @@ public class GUIHrana extends PPath {
             );
         }
 
+    }
 
+    public GUIVrchol getVrchol01() {
+        return vrchol01;
+    }
 
+    public void setVrchol01(GUIVrchol vrchol01) {
+        this.vrchol01 = vrchol01;
+    }
+
+    public GUIVrchol getVrchol02() {
+        return vrchol02;
+    }
+
+    public void setVrchol02(GUIVrchol vrchol02) {
+        this.vrchol02 = vrchol02;
+    }
+
+    public void setHrana(Hrana hrana) {
+        this.hrana = hrana;
     }
 }

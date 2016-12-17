@@ -63,4 +63,8 @@ public class GUIVrchol extends PPath {
     public float getVelkost() {
         return velkost;
     }
+
+    public void setVrchol(Vrchol vrchol) {
+        this.vrchol = vrchol;
+    }
 }
