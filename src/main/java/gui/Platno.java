@@ -21,9 +21,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class Platno extends PFrame {
@@ -114,6 +113,7 @@ public class Platno extends PFrame {
                     GUIVrchol vrchol = (GUIVrchol) event.getPickedNode();
                     vrcholVrstva.removeChild(vrchol);
                     vymazHranyPreVrchol(vrchol);
+                    graf.odstranVrchol(vrchol.getVrchol());
                 } else if (vytvaramHranu) {
 
                     PNode vrchol = event.getPickedNode();
@@ -158,6 +158,8 @@ public class Platno extends PFrame {
     }
 
 
+    private List<Object> kroky = null;
+    private int krok = 0;
     private void kostraPrehliadkaButton() {
         Button b = new Button("Kostra");
         b.addActionListener(new ActionListener() {
@@ -165,10 +167,79 @@ public class Platno extends PFrame {
             public void actionPerformed(ActionEvent e) {
                 Kostra kostra = new Kostra(graf,true);
                 kostra.spravAlgoritmus();
+                kroky = kostra.getKrokyAlgoritmu();
+                krok = kroky.size()-1;
+
+                repaint();
+                repaintHrany();
             }
         });
         b.setBounds(150, 500, 120, 30);
         add(b);
+        b = new Button("<");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(krok > 0){
+                    krok--;
+                }
+                IGraf grafVKroku = (IGraf) kroky.get(krok);
+                nastavGraf(grafVKroku);
+                System.out.println("max: "+(kroky.size()-1)+"krok: "+krok);
+            }
+        });
+        b.setBounds(300, 500, 50, 30);
+        add(b);
+        b = new Button(">");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(krok < kroky.size()-1){
+                    krok++;
+                }
+                IGraf grafVKroku = (IGraf) kroky.get(krok);
+                nastavGraf(grafVKroku);
+                System.out.println("max: "+(kroky.size()-1)+"krok: "+krok);
+            }
+        });
+        b.setBounds(360, 500, 50, 30);
+        add(b);
+
+
+    }
+
+    private void nastavGraf(IGraf grafVKroku) {
+        graf = grafVKroku;
+        TreeMap<String, Vrchol> vrcholy = new TreeMap<>();
+        HashMap<String,Hrana> hrany = new HashMap<>();
+        for (Vrchol vrchol :
+                graf.getVrcholy()) {
+            vrcholy.put(vrchol.getNazov(),vrchol);
+        }
+        for (Hrana hrana :
+                graf.getHrany()) {
+            // vlozim hranu, ta ma nazov vrchol1+vrchol2
+            hrany.put(hrana.getVrchol1().getNazov()+hrana.getVrchol2().getNazov(),hrana);
+        }
+
+
+        for(Iterator<GUIHrana> iter = hranyVrstva.getChildrenIterator(); iter.hasNext();) {
+            GUIHrana guiHrana = iter.next();
+            String nazovHrany = guiHrana.getVrchol01().getVrchol().getNazov() +
+                                    guiHrana.getVrchol02().getVrchol().getNazov();
+            Hrana hrana = hrany.get(nazovHrany);
+            if(hrana != null) guiHrana.setHrana(hrana);
+        }
+
+        for(Iterator<GUIVrchol> iter = vrcholVrstva.getChildrenIterator(); iter.hasNext();) {
+            GUIVrchol guiVrchol = iter.next();
+            Vrchol vrchol = vrcholy.get(guiVrchol.getVrchol().getNazov());
+            if(vrchol!= null) guiVrchol.setVrchol(vrchol);
+        }
+
+
+        repaint();
+        repaintHrany();
     }
 
 
@@ -241,7 +312,7 @@ public class Platno extends PFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = JOptionPane.showInputDialog("Zadaj nazov vrchola.");
-                if(graf.vrcholExistuje(name) || name.equals("null")) return ;
+                if(name == null|| graf.vrcholExistuje(name)) return ;
                 Vrchol vrchol = graf.dajVrchol(name);
                 GUIVrchol ts = new GUIVrchol(vrchol);
                 vrcholVrstva.addChild(ts);
