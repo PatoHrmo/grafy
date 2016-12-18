@@ -6,6 +6,7 @@ import algoritmy.Kostra;
 import algoritmy.TarryhoPrehliadka;
 import edu.umd.cs.piccolo.*;
 import edu.umd.cs.piccolo.event.*;
+import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;
 import edu.umd.cs.piccolox.*;
 import elementy.ExplicitnyGraf;
@@ -99,6 +100,7 @@ public class Platno extends PFrame {
             protected void drag(PInputEvent e) {
                 super.drag(e);
                 repaintHrany();
+                repaint();
             }
 
 
@@ -125,7 +127,7 @@ public class Platno extends PFrame {
 
                     if (vrcholyPreHranu[0] != null && vrcholyPreHranu[1] != null) {
                         vytvaramHranu = false;
-                        pridajHranu(vrcholyPreHranu[0], vrcholyPreHranu[1]);
+                        pridajHranu(vrcholyPreHranu[0], vrcholyPreHranu[1],0);
                         vrcholyPreHranu[0] = null;
                         vrcholyPreHranu[1] = null;
                     }
@@ -165,6 +167,7 @@ public class Platno extends PFrame {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Kostra kostra = new Kostra(graf,true);
                 kroky=kostra.getKroky();
                 krok = kroky.size()-1;
@@ -266,9 +269,10 @@ public class Platno extends PFrame {
         }
     }
 
-    private void pridajHranu(GUIVrchol v1, GUIVrchol v2) {
+    private void pridajHranu(GUIVrchol v1, GUIVrchol v2,double cena) {
         if(v1.getNazov().equals(v2.getNazov())) return ;
         Hrana hrana = graf.dajHranu(v1.getVrchol(),v2.getVrchol());
+        hrana.setCena(cena);
         GUIHrana guiHrana = new GUIHrana(v1, v2,hrana);
         hranyVrstva.addChild(guiHrana);
 
@@ -315,6 +319,7 @@ public class Platno extends PFrame {
                 Vrchol vrchol = graf.dajVrchol(name);
                 GUIVrchol ts = new GUIVrchol(vrchol);
                 vrcholVrstva.addChild(ts);
+                repaint();
             }
         });
         b.setBounds(5, 500, 120, 30);
@@ -349,8 +354,8 @@ public class Platno extends PFrame {
                     nacitaneVrcholy.put(guiV2.getNazov(),guiV2);
                     pridajVrchol(guiV2);
                 }
-
-                pridajHranu(guiV1,guiV2);
+                double cena = Double.valueOf(data[2]);
+                pridajHranu(guiV1,guiV2,cena);
 
 
             }

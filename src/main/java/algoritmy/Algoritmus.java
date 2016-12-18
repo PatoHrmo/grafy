@@ -5,9 +5,11 @@
  */
 package algoritmy;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import elementy.Hrana;
 import elementy.IGraf;
 
 /**
@@ -25,9 +27,6 @@ public abstract class Algoritmus {
     /**
      *
      * @param graf
-     * @param textPane
-     * @param pauser
-     * @param vstupy
      */
     public Algoritmus(IGraf graf) {
         this.graf = graf;
@@ -40,11 +39,14 @@ public abstract class Algoritmus {
     /**
      * metóda,ktorá sa volá pri spúšťní algoritmu
      */
+
     protected abstract void spravAlgoritmus();
     
     public List<Object> getKroky() {
     	graf.odfarbiGraf();
     	spravAlgoritmus();
     	return getKrokyAlgoritmu();
+
     }
+        
 }
