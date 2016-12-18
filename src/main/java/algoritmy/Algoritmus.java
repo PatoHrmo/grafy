@@ -40,6 +40,10 @@ public abstract class Algoritmus {
     /**
      * metóda,ktorá sa volá pri spúšťní algoritmu
      */
-    public abstract void spravAlgoritmus();
-        
+    protected abstract void spravAlgoritmus();
+    
+    public List<Object> getKroky() {
+    	spravAlgoritmus();
+    	return getKrokyAlgoritmu();
+    }
 }
