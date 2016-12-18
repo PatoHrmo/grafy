@@ -166,8 +166,7 @@ public class Platno extends PFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Kostra kostra = new Kostra(graf,true);
-                kostra.spravAlgoritmus();
-                kroky = kostra.getKrokyAlgoritmu();
+                kroky=kostra.getKroky();
                 krok = kroky.size()-1;
 
                 repaint();
