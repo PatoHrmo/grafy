@@ -7,12 +7,16 @@ import java.awt.geom.CubicCurve2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
+import atdixon.java2d.example.*;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.nodes.PPath;
+import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PAffineTransform;
 import edu.umd.cs.piccolo.util.PPaintContext;
 import elementy.Hrana;
 import javafx.scene.transform.Affine;
+
+import javax.xml.soap.Text;
 
 /**
  * Created by Chudjak Kristián on 20.10.2016.
@@ -22,6 +26,8 @@ public class GUIHrana extends PPath {
     private GUIVrchol vrchol01;
     private GUIVrchol vrchol02;
     private Hrana hrana;
+    private PText cenaHrany;
+
 
     private boolean orientovana;
     private ArrowNode arrow;
@@ -31,13 +37,18 @@ public class GUIHrana extends PPath {
         this.vrchol01 = v1;
         this.vrchol02 = v2;
         this.hrana = hrana;
+        this.cenaHrany = new PText(String.valueOf(hrana.getCena()));
+        cenaHrany.setFont(new Font("Helvetica", Font.PLAIN, 14));
+        cenaHrany.setPaint(Color.RED);
 
         BasicStroke bs = new BasicStroke(5);
 
         this.setStroke(bs);
-        orientovana = true;
+        orientovana = false;
         arrow = new ArrowNode();
         addChild(arrow);
+        addChild(1,cenaHrany);
+
 
     }
 
@@ -48,11 +59,26 @@ public class GUIHrana extends PPath {
         Point2D start = vrchol01.getFullBoundsReference().getCenter2D();
         Point2D end = vrchol02.getFullBoundsReference().getCenter2D();
 
+
         this.reset();
         this.moveTo((float) start.getX(), (float) start.getY());
         this.lineTo((float) end.getX(), (float) end.getY());
+        setTextPath(start,end);
 
-        arrow.redrawArrow(start,end,vrchol02.getVelkost()/2);
+
+        if(orientovana) {
+            arrow.redrawArrow(start, end, vrchol02.getVelkost() / 2);
+        }
+        getChild(0).setVisible(orientovana);
+
+
+    }
+
+    private void setTextPath(Point2D start, Point2D end) {
+        double x = (start.getX() + end.getX() )/2;
+        double y = (start.getY() + end.getY())/2;
+        this.cenaHrany.setX(x);
+        this.cenaHrany.setY(y);
 
     }
 
