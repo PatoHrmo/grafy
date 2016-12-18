@@ -33,6 +33,7 @@ public class Kostra extends Algoritmus {
      */
     @Override
     public void spravAlgoritmus() {
+        super.spravAlgoritmus();
         //zoradime hrany od najvacsej po najmensiu
         bubblesort(najlacnejsia);
         hladajKostru();
