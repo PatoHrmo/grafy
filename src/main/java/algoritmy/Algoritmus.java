@@ -43,6 +43,7 @@ public abstract class Algoritmus {
     protected abstract void spravAlgoritmus();
     
     public List<Object> getKroky() {
+    	graf.odfarbiGraf();
     	spravAlgoritmus();
     	return getKrokyAlgoritmu();
     }

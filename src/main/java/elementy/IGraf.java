@@ -50,7 +50,7 @@ public interface IGraf {
 	 * @return
 	 */
 	Hrana dajHranu(Vrchol vrchol1, Vrchol vrchol2);
-
+	
 	Vrchol dajVrchol(String nazovVrcholu);
 	boolean vrcholExistuje(String nazovVrcholu);
 
