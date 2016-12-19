@@ -115,7 +115,6 @@ public class Platno extends PFrame {
             @Override
             public void mouseClicked(PInputEvent event) {
                 super.mouseClicked(event);
-
                 if (vymazVrchol) {
                     IGUIVrchol vrchol = (GUIVrchol) event.getPickedNode();
                     vrcholVrstva.removeChild(vrchol);
@@ -221,11 +220,14 @@ public class Platno extends PFrame {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Vrchol v = graf.getVrcholy().get(1);
+                System.out.println("Zac. Vrchol: "+ v.getNazov());
 
-                PrehladavanieDoHlbky hlbka = new PrehladavanieDoHlbky(graf,graf.getVrcholy().get(1));
+                PrehladavanieDoHlbky hlbka = new PrehladavanieDoHlbky(graf,v);
                 kroky=hlbka.getKroky();
                 krok = kroky.size()-1;
-                nastavGraf((IGraf) kroky.get(krok));
+                IGraf graf = (IGraf) kroky.get(krok);
+                nastavGraf(graf);
 
                 repaint();
                 repaintHrany();
