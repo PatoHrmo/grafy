@@ -2,14 +2,13 @@
  * Created by Chudjak Kristián on 20.10.2016.
  */
 package gui;
+import algoritmy.Dijkstrov;
 import algoritmy.Kostra;
-import algoritmy.TarryhoPrehliadka;
+import algoritmy.PrehladavanieDoHlbky;
 import edu.umd.cs.piccolo.*;
 import edu.umd.cs.piccolo.event.*;
-import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;
 import edu.umd.cs.piccolox.*;
-import elementy.ExplicitnyGraf;
 import elementy.Hrana;
 import elementy.IGraf;
 import elementy.IGrafFactory;
@@ -37,20 +36,34 @@ public class Platno extends PFrame {
     private Label label;
     private IGraf graf;
 
-    private GUIVrchol[] vrcholyPreHranu;
+    private IGUIVrchol[] vrcholyPreHranu;
 
     public Platno() {
         setSize(1200, 720);
         vrcholyPreHranu = new GUIVrchol[2];
+
         getCanvas().setAnimatingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
         getCanvas().setInteractingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
         getCanvas().setDefaultRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
+<<<<<<< HEAD
         this.graf = IGrafFactory.getGraf("Explicitny");
 
+=======
+
+        this.graf = IGrafFactory.getGraf(IGrafFactory.TYP.EXPLICITNY);
+>>>>>>> origin/master
 
         vrcholVrstva = getCanvas().getLayer();
 
         nastavDragHandler(vrcholVrstva);
+<<<<<<< HEAD
+=======
+
+        System.out.println("1");
+        System.out.println("2");
+        System.out.println("3");
+
+>>>>>>> origin/master
         // pridaj button
         pridajVrcholButton();
 
@@ -62,6 +75,9 @@ public class Platno extends PFrame {
 
         //
         kostraPrehliadkaButton();
+
+        //
+        dijkstraButton();
 
 
     }
@@ -139,22 +155,21 @@ public class Platno extends PFrame {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	private void vymazHranyPreVrchol(GUIVrchol vrchol) {
-        ArrayList<GUIHrana> hranyNaVymazanie = new ArrayList<>();
+	private void vymazHranyPreVrchol(IGUIVrchol vrchol) {
+        ArrayList<IGUIHrana> hranyNaVymazanie = new ArrayList<>();
 		ArrayList<PNode> list = (ArrayList) hranyVrstva.getChildrenReference();
         for (PNode node : list){
-            if(node instanceof GUIHrana){
-                GUIHrana hrana = (GUIHrana)node;
+            if(node instanceof IGUIHrana){
+                IGUIHrana hrana = (IGUIHrana)node;
                 if (hrana.obsahujeVrchol(vrchol)) {
                     hranyNaVymazanie.add(hrana);
                 }
             }
         }
 
-        for (GUIHrana hrana: hranyNaVymazanie){
+        for (IGUIHrana hrana: hranyNaVymazanie){
             hranyVrstva.removeChild(hrana);
         }
-
 
     }
 
@@ -209,6 +224,26 @@ public class Platno extends PFrame {
 
     }
 
+
+    private void dijkstraButton() {
+        Button b = new Button("Do Hlbky");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                PrehladavanieDoHlbky hlbka = new PrehladavanieDoHlbky(graf,graf.getVrcholy().get(1));
+                kroky=hlbka.getKroky();
+                krok = kroky.size()-1;
+
+                repaint();
+                repaintHrany();
+            }
+        });
+        b.setBounds(150, 550, 120, 30);
+        add(b);
+    }
+
+
     private void nastavGraf(IGraf grafVKroku) {
         graf = grafVKroku;
         TreeMap<String, Vrchol> vrcholy = new TreeMap<>();
@@ -232,8 +267,8 @@ public class Platno extends PFrame {
             if(hrana != null) guiHrana.setHrana(hrana);
         }
 
-        for(Iterator<GUIVrchol> iter = vrcholVrstva.getChildrenIterator(); iter.hasNext();) {
-            GUIVrchol guiVrchol = iter.next();
+        for(Iterator<IGUIVrchol> iter = vrcholVrstva.getChildrenIterator(); iter.hasNext();) {
+            IGUIVrchol guiVrchol = iter.next();
             Vrchol vrchol = vrcholy.get(guiVrchol.getVrchol().getNazov());
             if(vrchol!= null) guiVrchol.setVrchol(vrchol);
         }
@@ -258,7 +293,7 @@ public class Platno extends PFrame {
     private int pocVrcholovY = 0;
 
 
-    public void pridajVrchol(GUIVrchol vrchol){
+    public void pridajVrchol(IGUIVrchol vrchol){
         vrchol.setPossition(120*pocVrcholovX,120*pocVrcholovY);
         vrcholVrstva.addChild(vrchol);
         pocVrcholovX++;
@@ -268,16 +303,17 @@ public class Platno extends PFrame {
         }
     }
 
-    private void pridajHranu(GUIVrchol v1, GUIVrchol v2,double cena) {
+    private void pridajHranu(IGUIVrchol v1, IGUIVrchol v2,double cena) {
         if(v1.getNazov().equals(v2.getNazov())) return ;
         Hrana hrana = graf.dajHranu(v1.getVrchol(),v2.getVrchol());
         hrana.setCena(cena);
-        GUIHrana guiHrana = new GUIHrana(v1, v2,hrana);
+        //IGUIHrana guiHrana = new GUIHrana(v1, v2,hrana);
+        IGUIHrana guiHrana = UIGrafFactory.getHrana(UIGrafFactory.UIHranaTYP.KLASICKY,v1,v2,hrana);
+
         hranyVrstva.addChild(guiHrana);
 
         repaintHrany();
         /*hrana.update();*/
-
     }
 
     private void vymazVrcholButton() {
@@ -316,7 +352,8 @@ public class Platno extends PFrame {
                 String name = JOptionPane.showInputDialog("Zadaj nazov vrchola.");
                 if(name == null|| graf.vrcholExistuje(name)) return ;
                 Vrchol vrchol = graf.dajVrchol(name);
-                GUIVrchol ts = new GUIVrchol(vrchol);
+                IGUIVrchol ts = UIGrafFactory.getVrchol(UIGrafFactory.UIVrcholTYP.KLASICKY,vrchol);
+
                 vrcholVrstva.addChild(ts);
                 repaint();
             }
@@ -329,17 +366,17 @@ public class Platno extends PFrame {
 
     private void nacitajData() {
         try(BufferedReader bfr = new BufferedReader(new FileReader("data.txt"))){
-            HashMap<String, GUIVrchol> nacitaneVrcholy = new HashMap<>();
+            HashMap<String, IGUIVrchol> nacitaneVrcholy = new HashMap<>();
 
             String line;
-            GUIVrchol guiV1;
-            GUIVrchol guiV2;
+            IGUIVrchol guiV1;
+            IGUIVrchol guiV2;
             while((line = bfr.readLine() )!= null){
                 String[] data = line.split("\\s+");
                 Vrchol v1 = graf.dajVrchol(data[0]);
                 Vrchol v2 = graf.dajVrchol(data[1]);
-                guiV1 = new GUIVrchol(v1);
-                guiV2 = new GUIVrchol(v2);
+                guiV1 = UIGrafFactory.getVrchol(UIGrafFactory.UIVrcholTYP.KLASICKY,v1);
+                guiV2 = UIGrafFactory.getVrchol(UIGrafFactory.UIVrcholTYP.KLASICKY,v2);
 
                 if(nacitaneVrcholy.containsKey(guiV1.getNazov())){
                     guiV1 = nacitaneVrcholy.get(guiV1.getNazov());

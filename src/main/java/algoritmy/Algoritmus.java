@@ -25,7 +25,6 @@ public abstract class Algoritmus {
     protected List<Object> krokyAlgoritmu;
 
     /**
-     *
      * @param graf
      */
     public Algoritmus(IGraf graf) {
@@ -39,14 +38,12 @@ public abstract class Algoritmus {
     /**
      * metóda,ktorá sa volá pri spúšťní algoritmu
      */
-
     protected abstract void spravAlgoritmus();
     
     public List<Object> getKroky() {
     	graf.odfarbiGraf();
     	spravAlgoritmus();
     	return getKrokyAlgoritmu();
-
     }
-        
+
 }

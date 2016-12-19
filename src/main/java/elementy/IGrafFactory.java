@@ -1,13 +1,17 @@
 package elementy;
 
 public class IGrafFactory {
-	public static IGraf getGraf(String typ) {
-		switch(typ.toLowerCase()){
-		case "explicitny": 
+	public static IGraf getGraf(TYP typ) {
+		switch(typ){
+			case EXPLICITNY:
 			return new ExplicitnyGraf();
-		case "dopredny":
+			case DOPREDNY:
 			return new DobrednyGraf();
 			default : return null;
 		}
+	}
+
+	public enum TYP{
+		EXPLICITNY,DOPREDNY
 	}
 }

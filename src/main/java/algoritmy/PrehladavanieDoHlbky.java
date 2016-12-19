@@ -47,12 +47,15 @@ public class PrehladavanieDoHlbky extends Algoritmus {
         for (Hrana hrana : graf.getHrany()) {
             if (hrana.getVrchol1() == paVrchol && hrana.getVrchol2().getFarba() != Color.red) {
                 hrana.setFarba(Color.red);
+                krokyAlgoritmu.add(graf.clone());
                 prehladavanieDoHlbky(hrana.getVrchol2());
+
             } else if (hrana.getVrchol2() == paVrchol && hrana.getVrchol1().getFarba() != Color.red) {
                 hrana.setFarba(Color.red);
+                krokyAlgoritmu.add(graf.clone());
                 prehladavanieDoHlbky(hrana.getVrchol1());
             }
-            krokyAlgoritmu.add(graf.clone());
+
         }
     }
     
