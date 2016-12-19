@@ -2,38 +2,28 @@ package gui;
 
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.CubicCurve2D;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
 //import atdixon.java2d.example.*;
-import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
-import edu.umd.cs.piccolo.util.PAffineTransform;
 import edu.umd.cs.piccolo.util.PPaintContext;
 import elementy.Hrana;
-import javafx.scene.transform.Affine;
-
-import javax.xml.soap.Text;
 
 /**
  * Created by Chudjak Kristián on 20.10.2016.
  */
 @SuppressWarnings("serial")
-public class GUIHrana extends PPath {
-    private GUIVrchol vrchol01;
-    private GUIVrchol vrchol02;
+public class GUIHrana extends IGUIHrana {
+    private IGUIVrchol vrchol01;
+    private IGUIVrchol vrchol02;
     private Hrana hrana;
     private PText cenaHrany;
-
 
     private boolean orientovana;
     private ArrowNode arrow;
 
-
-    public GUIHrana(GUIVrchol v1, GUIVrchol v2,Hrana hrana) {
+    public GUIHrana(IGUIVrchol v1, IGUIVrchol v2, Hrana hrana) {
         this.vrchol01 = v1;
         this.vrchol02 = v2;
         this.hrana = hrana;
@@ -86,7 +76,6 @@ public class GUIHrana extends PPath {
     @Override
     protected void paint(PPaintContext paintContext) {
         super.paint(paintContext);
-
     }
 
 
@@ -97,7 +86,7 @@ public class GUIHrana extends PPath {
         return Math.atan2(end.getY() - start.getY(), end.getX() - start.getX());
     }
 
-    public boolean obsahujeVrchol(GUIVrchol v) {
+    public boolean obsahujeVrchol(IGUIVrchol v) {
         return vrchol01 == v || vrchol02 == v;
     }
 
@@ -163,7 +152,7 @@ public class GUIHrana extends PPath {
 
     }
 
-    public GUIVrchol getVrchol01() {
+    public IGUIVrchol getVrchol01() {
         return vrchol01;
     }
 
@@ -171,7 +160,7 @@ public class GUIHrana extends PPath {
         this.vrchol01 = vrchol01;
     }
 
-    public GUIVrchol getVrchol02() {
+    public IGUIVrchol getVrchol02() {
         return vrchol02;
     }
 
