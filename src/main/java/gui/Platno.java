@@ -119,10 +119,10 @@ public class Platno extends PFrame {
                 super.mouseClicked(event);
 
                 if (vymazVrchol) {
-                    GUIVrchol vrchol = (GUIVrchol) event.getPickedNode();
+                    IGUIVrchol vrchol = (GUIVrchol) event.getPickedNode();
                     vrcholVrstva.removeChild(vrchol);
-                    vymazHranyPreVrchol(vrchol);
                     graf.odstranVrchol(vrchol.getVrchol());
+                    vymazHranyPreVrchol(vrchol);
                 } else if (vytvaramHranu) {
 
                     PNode vrchol = event.getPickedNode();
@@ -161,6 +161,7 @@ public class Platno extends PFrame {
 
         for (IGUIHrana hrana: hranyNaVymazanie){
             hranyVrstva.removeChild(hrana);
+
         }
 
     }
@@ -177,7 +178,7 @@ public class Platno extends PFrame {
                 Kostra kostra = new Kostra(graf,true);
                 kroky=kostra.getKroky();
                 krok = kroky.size()-1;
-
+                nastavGraf((IGraf) kroky.get(krok));
                 repaint();
                 repaintHrany();
             }
@@ -226,6 +227,7 @@ public class Platno extends PFrame {
                 PrehladavanieDoHlbky hlbka = new PrehladavanieDoHlbky(graf,graf.getVrcholy().get(1));
                 kroky=hlbka.getKroky();
                 krok = kroky.size()-1;
+                nastavGraf((IGraf) kroky.get(krok));
 
                 repaint();
                 repaintHrany();
