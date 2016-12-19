@@ -5,21 +5,21 @@
  */
 package algoritmy;
 
-import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import elementy.Hrana;
+
 import elementy.IGraf;
 
 /**
  * Abstraktná trieda, dedia z nej triedy reprezentujúce konkrétny algoritmus. 
- * @author Erik
+ * @author Patrik
  */
 public abstract class Algoritmus {
 
     /**
-     * graf nad ktorým sa algoritmus vykonáva
+     * graf nad ktorom sa algoritmus vykonava
      */
     protected IGraf graf;
     protected List<Object> krokyAlgoritmu;

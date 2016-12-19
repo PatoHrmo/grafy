@@ -12,6 +12,7 @@ import edu.umd.cs.piccolox.*;
 import elementy.ExplicitnyGraf;
 import elementy.Hrana;
 import elementy.IGraf;
+import elementy.IGrafFactory;
 import elementy.Vrchol;
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class Platno extends PFrame {
         getCanvas().setInteractingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
         getCanvas().setDefaultRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
 
-        this.graf = new ExplicitnyGraf();
+        this.graf = IGrafFactory.getGraf("Explicitny");
 
 
         vrcholVrstva = getCanvas().getLayer();
