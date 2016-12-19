@@ -34,7 +34,9 @@ public class PrehladavanieDoHlbky extends Algoritmus {
      */
     @Override
     public void spravAlgoritmus() {
-        prehladavanieDoHlbky(vrchol);       
+        krokyAlgoritmu.add(graf.clone());
+        prehladavanieDoHlbky(vrchol);
+        krokyAlgoritmu.add(graf.clone());
     }
     
     /**
@@ -45,12 +47,12 @@ public class PrehladavanieDoHlbky extends Algoritmus {
     private void prehladavanieDoHlbky(Vrchol paVrchol) {
         paVrchol.zafarbi();
         for (Hrana hrana : graf.getHrany()) {
-            if (hrana.getVrchol1() == paVrchol && hrana.getVrchol2().getFarba() != Color.red) {
+            if (hrana.getVrchol1().getNazov().equals(paVrchol.getNazov()) && hrana.getVrchol2().getFarba() != Color.red) {
                 hrana.setFarba(Color.red);
                 krokyAlgoritmu.add(graf.clone());
                 prehladavanieDoHlbky(hrana.getVrchol2());
 
-            } else if (hrana.getVrchol2() == paVrchol && hrana.getVrchol1().getFarba() != Color.red) {
+            } else if (hrana.getVrchol2().getNazov().equals(paVrchol.getNazov()) && hrana.getVrchol1().getFarba() != Color.red) {
                 hrana.setFarba(Color.red);
                 krokyAlgoritmu.add(graf.clone());
                 prehladavanieDoHlbky(hrana.getVrchol1());

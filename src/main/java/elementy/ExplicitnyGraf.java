@@ -75,7 +75,7 @@ public class ExplicitnyGraf implements IGraf{
 	public void odstranVrchol(Vrchol paVrchol) {
         List<Hrana> hranyNaVymazanie = new ArrayList<>();
         for (Hrana hrana : hrany) {
-            if (hrana.getVrchol1() == paVrchol || hrana.getVrchol2() == paVrchol) {
+            if (hrana.getVrchol1().getNazov().equals(paVrchol.getNazov()) || hrana.getVrchol2().getNazov().equals(paVrchol.getNazov())) {
                 hranyNaVymazanie.add(hrana);
                 hrana.getVrchol1().vymazIncidentnuHranu(hrana);
                 hrana.getVrchol2().vymazIncidentnuHranu(hrana);
