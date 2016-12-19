@@ -45,25 +45,15 @@ public class Platno extends PFrame {
         getCanvas().setAnimatingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
         getCanvas().setInteractingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
         getCanvas().setDefaultRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
-<<<<<<< HEAD
-        this.graf = IGrafFactory.getGraf("Explicitny");
 
-=======
 
         this.graf = IGrafFactory.getGraf(IGrafFactory.TYP.EXPLICITNY);
->>>>>>> origin/master
+
 
         vrcholVrstva = getCanvas().getLayer();
 
         nastavDragHandler(vrcholVrstva);
-<<<<<<< HEAD
-=======
 
-        System.out.println("1");
-        System.out.println("2");
-        System.out.println("3");
-
->>>>>>> origin/master
         // pridaj button
         pridajVrcholButton();
 
