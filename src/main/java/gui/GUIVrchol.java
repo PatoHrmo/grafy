@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
  */
 
 @SuppressWarnings("serial")
-public class GUIVrchol extends PPath {
+public class GUIVrchol extends IGUIVrchol {
 
     private boolean isPressed = false;
     private Color colorPressed = new Color(50,40,50);
@@ -64,6 +64,7 @@ public class GUIVrchol extends PPath {
     public String getNazov(){
         return vrchol.getNazov();
     }
+
 
     public Vrchol getVrchol() {
         return vrchol;
