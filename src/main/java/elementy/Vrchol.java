@@ -33,15 +33,15 @@ public class Vrchol implements Cloneable {
         this.bolNavstiveny = false;
         this.incidentneHrany = new LinkedList<>();
     }
-    private Vrchol(Vrchol Vrchol) {
-    	this.nazov = Vrchol.nazov;
-    	this.znacka = Vrchol.znacka;
-    	this.pomBoolean = Vrchol.pomBoolean;
-    	this.bolNavstiveny = Vrchol.bolNavstiveny;
-    	if(Vrchol.pomVrchol!=null) {
-    		this.pomVrchol = Vrchol.pomVrchol.clone();
+    private Vrchol(Vrchol vrchol) {
+    	this.nazov = vrchol.nazov;
+    	this.znacka = vrchol.znacka;
+    	this.pomBoolean = vrchol.pomBoolean;
+    	this.bolNavstiveny = vrchol.bolNavstiveny;
+    	if(vrchol.pomVrchol!=null) {
+    		this.pomVrchol = vrchol.pomVrchol.clone();
     	}
-    	this.farba = new Color(Vrchol.farba.getRGB());
+    	this.farba = new Color(vrchol.farba.getRGB());
     	this.incidentneHrany = new LinkedList<>();
 
     }
